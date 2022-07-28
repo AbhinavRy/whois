@@ -1,0 +1,109 @@
+<style>
+  .toolbar {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #1976d2;
+    color: white;
+    font-weight: 500;
+  }
+  .heading{
+    font-size: 2em;
+    padding: 0.5em;
+  }
+  .wrapper{
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    margin-top: 10%;
+  }
+  .custom-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .loading-spinner{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+  }
+  .card-data{
+    display: inline;
+    width: 30%;
+  }
+  .card-wrapper{
+    display: flex;
+    justify-content: center;
+    
+  }
+  .custom-data-rows{
+    display: flex;
+    justify-content: space-between;
+  }
+  .keys{
+    width: 2em;
+    padding: 0.5em;
+  }
+</style>
+
+<div>
+  <div class="toolbar" role="banner">
+    <div class="heading">Whois</div>
+  </div>
+<div class="wrapper">
+  <form class="custom-form" [formGroup]="urlForm" (ngSubmit)="Submit()">
+    <mat-form-field appearance="fill">
+      <mat-label>URL</mat-label>
+      <input matInput placeholder="Ex. https://google.com" 
+        id="url"
+        formControlName="url"
+      >
+    </mat-form-field>
+    <mat-card-actions>
+      <button mat-raised-button type="submit" color="primary" [disabled]="showSpinner">
+        <mat-icon aria-hidden="false" aria-label="search icon" fontIcon="search"></mat-icon>
+      </button>
+    </mat-card-actions>
+  </form>
+  <div class="loading-spinner" *ngIf="showSpinner">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div class="card-wrapper">
+    <mat-card class="card-data custom-card" *ngIf="urlData">
+      <p class="custom-data-rows">
+        <span class="keys">URL</span>
+        <span class="value">{{urlData.url}}</span>
+      </p>
+      <p class="custom-data-rows">
+        <span class="keys">Domain</span>
+        <span class="value">{{urlData.domain}}</span>
+      </p>
+      <p class="custom-data-rows">
+        <span class="keys">Updated Date</span>
+        <span class="value">{{urlData.updated_date}}</span>
+      </p>
+      <p class="custom-data-rows">
+        <span class="keys">Created Date</span>
+        <span class="value">{{urlData.created_date}}</span>
+      </p>
+      <p class="custom-data-rows">
+        <span class="keys">Expiration Date</span>
+        <span class="value">{{urlData.expiration_date}}</span>
+      </p>
+      <p class="custom-data-rows">
+        <span class="keys">Registrar</span>
+        <span class="value">{{urlData.registrar}}</span>
+      </p>
+      <p class="custom-data-rows">
+        <span class="keys">Reg. Country</span>
+        <span class="value">{{urlData.reg_country}}</span>
+      </p>
+    </mat-card>
+  </div>
+</div>
+</div>
+
+<router-outlet></router-outlet>
